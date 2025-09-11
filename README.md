@@ -1,5 +1,12 @@
 # Smart Insights Dashboard
 
+![License](https://img.shields.io/github/license/JonatanLil/smart-insights-dashboard)
+![Tech Stack](https://img.shields.io/badge/stack-FastAPI%20|%20Next.js%20|%20PostgreSQL%20|%20Scikit--learn-blue)
+![Deploy](https://img.shields.io/badge/deploy-Vercel%20|%20Heroku-green)
+![Build](https://img.shields.io/github/actions/workflow/status/JonatanLil/smart-insights-dashboard/ci.yml?label=build)
+![Code Style](https://img.shields.io/badge/code%20style-black-000000)
+![Code Style](https://img.shields.io/badge/code%20style-prettier-ff69b4)
+
 📊 **Smart Insights Dashboard** is a full-stack web app that combines interactive data visualization with machine learning insights.  
 Built to explore real sports datasets (Golf), it predicts player performance and recommends personalized insights — all in a modern, responsive dashboard.  
 
