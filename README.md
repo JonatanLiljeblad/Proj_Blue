@@ -1,7 +1,7 @@
 # Smart Insights Dashboard
 
 📊 **Smart Insights Dashboard** is a full-stack web app that combines interactive data visualization with machine learning insights.  
-Built to explore real sports datasets (NBA / Golf), it predicts player performance and recommends personalized insights — all in a modern, responsive dashboard.  
+Built to explore real sports datasets (Golf), it predicts player performance and recommends personalized insights — all in a modern, responsive dashboard.  
 
 This project showcases **full-stack engineering + ML integration + cloud deployment** — designed for learning and for portfolio use in data-driven software internships.  
 
@@ -140,7 +140,7 @@ GET  /api/recommend           # personalized recommendations
 
 - [FastAPI Docs (auto-generated)](http://127.0.0.1:8000/docs)  
 - Full walkthrough in `/docs` folder  
-- GitHub Actions for CI/CD (coming soon)  
+- GitHub Actions for CI/CD (coming soon)
 
 ---
 
