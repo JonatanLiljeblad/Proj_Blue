@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+.venv/
+*.sqlite3
+
+# FastAPI / general Python
+instance/
+.webassets-cache
+*.egg-info/
+*.egg
+dist/
+build/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# dotenv
+.env
+.env.* 
+
+# Node / frontend
+node_modules/
+npm-debug.log*
+yarn-error.log*
+package-lock.json
+.next/
+out/
+
+# Docker
+*.docker
+docker-compose.override.yml
