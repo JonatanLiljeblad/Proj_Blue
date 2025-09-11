@@ -1,6 +1,6 @@
 # Smart Insights Dashboard  ![Build Status](https://github.com/JonatanLil/Proj_Blue/actions/workflows/ci.yml/badge.svg)
 
-![License](https://img.shields.io/github/license/JonatanLil/smart-insights-dashboard)
+![License](https://img.shields.io/github/license/JonatanLil/Proj_Blue)
 ![Tech Stack](https://img.shields.io/badge/stack-FastAPI%20|%20Next.js%20|%20PostgreSQL%20|%20Scikit--learn-blue)
 ![Deploy](https://img.shields.io/badge/deploy-Vercel%20|%20Heroku-green)
 ![Code Style](https://img.shields.io/badge/code%20style-black-000000)
