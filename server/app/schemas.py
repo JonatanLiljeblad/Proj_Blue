@@ -11,4 +11,8 @@ class UserOut(BaseModel):
     username: str
     email: str
     class Config:
-        orm_mode = True
+        from_attributes = True
+
+class UserLogin(BaseModel):
+    email: str
+    password: str
