@@ -1,33 +1,37 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from .. import models, schemas, database
-from ..jwt import create_access_token
-from passlib.context import CryptContext
-import bcrypt
+from datetime import timedelta
 
-router = APIRouter()
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from .. import models, schemas, database, oauth2, crud
+from ..utils import hash_password
+
+router = APIRouter(prefix="/auth", tags=["Auth"])
+
 
 @router.get("/")
 def auth_test():
     return {"message": "Auth route working!"}
 
+
+# ----------------- SIGNUP -----------------
 @router.post("/signup", response_model=schemas.UserOut)
 def signup(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
+    # Check if user/email already exists
     db_user = db.query(models.User).filter(
-    (models.User.email == user.email) | (models.User.username == user.username)).first()
+        (models.User.email == user.email) | (models.User.username == user.username)
+    ).first()
     if db_user:
         raise HTTPException(
-            status_code=400,
+            status_code=status.HTTP_400_BAD_REQUEST,
             detail="Username or email already registered"
         )
-    
-    # Hash the password properly
-    hashed_password = bcrypt.hashpw(user.password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+    # Hash password
+    hashed_password = hash_password(user.password)
 
     new_user = models.User(
-        username=user.username, 
-        email=user.email, 
+        username=user.username,
+        email=user.email,
         hashed_password=hashed_password
     )
     db.add(new_user)
@@ -35,11 +39,23 @@ def signup(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
     db.refresh(new_user)
     return new_user
 
+
+# ----------------- LOGIN -----------------
 @router.post("/login")
 def login(user: schemas.UserLogin, db: Session = Depends(database.get_db)):
-    db_user = db.query(models.User).filter(models.User.email == user.email).first()
-    if not db_user or not pwd_context.verify(user.password, db_user.hashed_password):
-        raise HTTPException(status_code=400, detail="Invalid credentials")
-    
-    token = create_access_token({"user_id": db_user.id})
-    return {"access_token": token, "token_type": "bearer"}
+    # Authenticate user
+    user_db = crud.authenticate_user(db, user.email, user.password)
+    if not user_db:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid email or password"
+        )
+
+    # Create JWT
+    access_token_expires = timedelta(minutes=oauth2.ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = oauth2.create_access_token(
+        data={"user_id": user_db.id},
+        expires_delta=access_token_expires
+    )
+
+    return {"access_token": access_token, "token_type": "bearer"}
