@@ -5,7 +5,7 @@ from datetime import timedelta
 from .. import models, schemas, database, oauth2, crud
 from ..utils import hash_password
 
-router = APIRouter(prefix="/auth", tags=["Auth"])
+router = APIRouter(tags=["Auth"])
 
 
 @router.get("/")
