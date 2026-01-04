@@ -1,8 +1,14 @@
 import pytest
+import os
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
+
+# Set required environment variables for testing
+os.environ.setdefault("JWT_SECRET", "test_secret_key_for_testing")
+os.environ.setdefault("DATABASE_URL", "sqlite:///:memory:")
+
 from app.main import app
 from app.database import Base, get_db
 from app import models
