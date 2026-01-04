@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session
 from . import database, crud
 import os
 
-SECRET_KEY = os.getenv("SECRET_KEY", "mysecret")
+SECRET_KEY = os.getenv("JWT_SECRET")
+if not SECRET_KEY:
+    raise ValueError("JWT_SECRET environment variable is required")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
