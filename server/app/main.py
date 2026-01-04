@@ -5,7 +5,12 @@ from . import models, database
 
 models.Base.metadata.create_all(bind=database.engine)
 
-app = FastAPI(Title="Smart Insight Dashboard API", version="0.0.1")
+app = FastAPI(title="Smart Insight Dashboard API", version="0.0.1")
+
+# Root endpoint for health check
+@app.get("/")
+def root():
+    return {"status": "healthy", "message": "Smart Insight Dashboard API is running"}
 
 # Include routers
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
