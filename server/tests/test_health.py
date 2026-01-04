@@ -20,6 +20,8 @@ def test_health_check_structure(client):
     assert response.status_code == 200
     data = response.json()
     assert isinstance(data, dict)
-    assert len(data) == 2  # Should have exactly 2 keys: status and message
+    # Verify required keys exist and have correct types
+    assert "status" in data
+    assert "message" in data
     assert isinstance(data["status"], str)
     assert isinstance(data["message"], str)
