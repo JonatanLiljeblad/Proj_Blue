@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from datetime import timedelta
 
@@ -42,13 +43,14 @@ def signup(user: schemas.UserCreate, db: Session = Depends(database.get_db)):
 
 # ----------------- LOGIN -----------------
 @router.post("/login")
-def login(user: schemas.UserLogin, db: Session = Depends(database.get_db)):
-    # Authenticate user
-    user_db = crud.authenticate_user(db, user.email, user.password)
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
+    # Authenticate user (using username field as email for OAuth2 compatibility)
+    user_db = crud.authenticate_user(db, form_data.username, form_data.password)
     if not user_db:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password"
+            detail="Invalid email or password",
+            headers={"WWW-Authenticate": "Bearer"},
         )
 
     # Create JWT

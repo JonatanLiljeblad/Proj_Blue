@@ -3,9 +3,11 @@ from fastapi import FastAPI
 from .routers import auth, users, data
 from . import models, database
 
-models.Base.metadata.create_all(bind=database.engine)
+app = FastAPI(title="Smart Insight Dashboard API", version="0.0.1")
 
-app = FastAPI(Title="Smart Insight Dashboard API", version="0.0.1")
+@app.on_event("startup")
+def on_startup():
+    models.Base.metadata.create_all(bind=database.engine)
 
 # Include routers
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])

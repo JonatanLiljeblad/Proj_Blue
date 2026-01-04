@@ -8,6 +8,7 @@ venv/
 ENV/
 .venv/
 *.sqlite3
+test.db
 
 # FastAPI / general Python
 instance/
