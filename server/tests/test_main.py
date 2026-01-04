@@ -2,11 +2,7 @@
 Tests for the main FastAPI application and health check endpoint.
 """
 import pytest
-import os
 from fastapi.testclient import TestClient
-
-# Set a test database URL before importing the app
-os.environ["DATABASE_URL"] = "sqlite:///:memory:"
 
 from app.main import app
 
