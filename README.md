@@ -80,7 +80,7 @@ cd server
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 Backend will run at `http://127.0.0.1:8000`.
@@ -97,11 +97,12 @@ Frontend will run at `http://localhost:3000`.
 ### 4. Environment variables
 Create `.env` files in `server/` and `client/`:
 
-**server/.env**
+**server/.env** (required)
 ```
 DATABASE_URL=postgresql://username:password@localhost:5432/sportsdb
-JWT_SECRET=supersecretkey
+JWT_SECRET=your_strong_random_secret_key_here
 ```
+> **Note**: Both `DATABASE_URL` and `JWT_SECRET` are **required**. The application will not start without them.
 
 **client/.env**
 ```
